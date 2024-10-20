@@ -143,21 +143,52 @@ class EvilCircle extends Shape {
     super(x, y, 10, 10);
     this.color = "white";
     this.size = 10;
+    let keySequence = [];
 
     window.addEventListener("keydown", (e) => {
-      switch (e.key) {
-        case "a":
-          this.x -= this.velX;
-          break;
-        case "s":
-          this.y += this.velY;
-          break;
-        case "d":
-          this.x += this.velX;
-          break;
-        case "w":
-          this.y -= this.velY;
-          break;
+      if (e.key === 'a' || e.key === 'd' || e.key === 's' || e.key === 'w') {
+        keySequence[e.key] = true;  // setting key press on w a s or d
+      }
+
+      console.log(keySequence);
+
+      if (keySequence.length === 1) {} // Check for diagonal movement
+        if (keySequence['w'] && keySequence['a']) { // moving up and left
+          this.x -= this.velX / 2;
+          this.y -= this.velY / 2;
+        } else if (keySequence['w'] && keySequence['d']) { // moving up and right
+          this.x += this.velX / 2;
+          this.y -= this.velY / 2;
+        } else if (keySequence['s'] && keySequence['a']) { // right down and left
+          this.x -= this.velX / 2;
+          this.y += this.velY / 2;
+        } else if (keySequence['s'] && keySequence['d']) { // moving down and right
+          this.x += this.velX / 2;
+          this.y += this.velY / 2;
+        }
+      else { // Single direction
+        switch (e.key) {
+          case "a":
+            this.x -= this.velX;
+            break;
+          case "s":
+            this.y += this.velY;
+            break;
+          case "d":
+            this.x += this.velX;
+            break;
+          case "w":
+            this.y -= this.velY;
+            break;
+        }
+      }
+      // keySequence = [];
+    })
+
+    window.addEventListener("keyup", (e) => { // resetting what movement keys are no longer pushed
+      if (keySequence[e.key] == null) {
+      } else {
+        keySequence[e.key] = false;
       }
     })
   }

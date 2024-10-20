@@ -14,3 +14,4 @@ Steps to run the website:
 ## Sources and Credits
 
 MDN Webdocs: https://developer.mozilla.org/
+Helpful guide on grabbing multiple keypresses : https://tinyurl.com/bdnh8psb

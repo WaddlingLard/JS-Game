@@ -39,3 +39,12 @@ h1 {
   right: 25px;
   color: #aaa;
 }
+
+#helper {
+  position: fixed;
+  margin: 0;
+  top: 10px;
+  left: 10px; 
+  color: #aaa;
+  font-size: 2em;
+}

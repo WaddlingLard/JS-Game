@@ -158,6 +158,7 @@ class EvilCircle extends Shape {
     super(x, y, 10, 10);
     this.color = "white";
     this.size = 10;
+    this.exists = false;
     let keySequence = [];
 
     window.addEventListener("keydown", (e) => {
@@ -219,7 +220,18 @@ class EvilCircle extends Shape {
         keySequence[e.key] = false;
       }
     })
+
+    window.addEventListener("click", (e) => { // Initalize position
+      if (this.exists === false) {
+        this.x = e.x;
+        this.y = e.y;
+        this.exists = true;
+      }
+
+    })
   }
+
+
 
   draw() {
     ctx.beginPath();
@@ -289,38 +301,78 @@ class EvilCircle extends Shape {
 
 const balls = [];
 const spawners = [];
-const evilBall = new EvilCircle(random(0, width), random(0, height));
+const evilBall = new EvilCircle(0, 0);
 let currentBalls = 0;
 let ballsEaten = 0;
+
 const score = document.querySelector("#score");
+const eaten = document.querySelector("#eaten");
 
-while (balls.length < 25) {
-  while (spawners.length < 20) {
-    const spawner = new Spawner(
-      random(25, width - 25),
-      random(25, height -25)
-    )
-    spawners.push(spawner);
+function reset() {
+  if (balls.length < 1) {
+    balls.pop();
   }
-  const size = random(10, 20);
-  const ball = new Ball(
-    // ball position always drawn at least one ball width
-    // away from the edge of the canvas, to avoid drawing errors
-    random(0 + size, width - size),
-    random(0 + size, height - size),
-    // random(-7, 7),
-    // random(-7, 7),
-    random(-3, 3), // Makes things slower
-    random(-3, 3),
-    // 0, // Testing purposes
-    // 0,
-    randomRGB(),
-    size
-  );
+  if (spawners.length < 1) {
+    spawners.pop();
+  }
+  // evilBall = new EvilCircle(random(0, width), random(0, height));
 
-  balls.push(ball);
-  currentBalls++;
+  while (balls.length < 25) {
+    while (spawners.length < 10) {
+      const spawner = new Spawner(
+        random(25, width - 25),
+        random(25, height -25)
+      )
+      spawners.push(spawner);
+    }
+    const size = random(10, 20);
+    const ball = new Ball(
+      // ball position always drawn at least one ball width
+      // away from the edge of the canvas, to avoid drawing errors
+      random(0 + size, width - size),
+      random(0 + size, height - size),
+      // random(-7, 7),
+      // random(-7, 7),
+      random(-3, 3), // Makes things slower
+      random(-3, 3),
+      // 0, // Testing purposes
+      // 0,
+      randomRGB(),
+      size
+    );
+  
+    balls.push(ball);
+    currentBalls++;
+  }
 }
+
+// while (balls.length < 1) {
+//   while (spawners.length < 20) {
+//     const spawner = new Spawner(
+//       random(25, width - 25),
+//       random(25, height -25)
+//     )
+//     spawners.push(spawner);
+//   }
+//   const size = random(10, 20);
+//   const ball = new Ball(
+//     // ball position always drawn at least one ball width
+//     // away from the edge of the canvas, to avoid drawing errors
+//     random(0 + size, width - size),
+//     random(0 + size, height - size),
+//     // random(-7, 7),
+//     // random(-7, 7),
+//     random(-3, 3), // Makes things slower
+//     random(-3, 3),
+//     // 0, // Testing purposes
+//     // 0,
+//     randomRGB(),
+//     size
+//   );
+
+//   balls.push(ball);
+//   currentBalls++;
+// }
 
 function loop() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
@@ -337,12 +389,35 @@ function loop() {
       ball.update();
       ball.collisionDetect();
     }
-    evilBall.draw();
-    evilBall.checkBounds();
-    evilBall.collisionDetect();
+    
+    if (evilBall.exists === true) {
+      evilBall.draw();
+      evilBall.checkBounds();
+      evilBall.collisionDetect();
+    }
   }
   score.innerHTML = "Score: " + currentBalls;
+  eaten.innerHTML = "Eaten: " + ballsEaten;
+
+
+  // if (currentBalls === 0) { // Game Over!
+  //   alert("GAME OVER!");
+  //   reset();
+
+  //   for (const ball of balls) {
+  //     if (ball.exists === true) {
+  //       ball.draw();
+  //       ball.update();
+  //       ball.collisionDetect();
+  //     }
+  //     evilBall.draw();
+  //     evilBall.checkBounds();
+  //     evilBall.collisionDetect();
+  //   }
+  // }
+
   requestAnimationFrame(loop);
 }
 
+reset();
 loop();

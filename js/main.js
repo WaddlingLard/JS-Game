@@ -150,10 +150,23 @@ class EvilCircle extends Shape {
         keySequence[e.key] = true;  // setting key press on w a s or d
       }
 
-      console.log(keySequence);
+      // console.log(keySequence);
 
       if (keySequence.length === 1) {} // Check for diagonal movement
-        if (keySequence['w'] && keySequence['a']) { // moving up and left
+        if (keySequence['w'] && keySequence['a'] && keySequence['s'] && keySequence['d']) { // all pressed
+        } else if (keySequence['w'] && keySequence['s']) { // opposite directions
+          if (keySequence['a']) {
+            this.x -= this.velX;
+          } else if (keySequence['d']){
+            this.x += this.velX;
+          }
+        } else if (keySequence['a'] && keySequence['d']) { // opposite directions
+          if (keySequence['w']) {
+            this.y -= this.velY;
+          } else if (keySequence['s']){
+            this.y += this.velY;
+          }
+        } else if (keySequence['w'] && keySequence['a']) { // moving up and left
           this.x -= this.velX / 2;
           this.y -= this.velY / 2;
         } else if (keySequence['w'] && keySequence['d']) { // moving up and right

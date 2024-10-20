@@ -223,15 +223,13 @@ class EvilCircle extends Shape {
 
     window.addEventListener("click", (e) => { // Initalize position
       if (this.exists === false) {
-        this.x = e.x;
-        this.y = e.y;
+        this.x = e.x; 
+        this.y = e.y - 60; // accounting for canvas offset
         this.exists = true;
       }
 
     })
   }
-
-
 
   draw() {
     ctx.beginPath();
@@ -307,6 +305,13 @@ let ballsEaten = 0;
 
 const score = document.querySelector("#score");
 const eaten = document.querySelector("#eaten");
+const button = document.querySelector("#reset");
+
+button.addEventListener("click", handler);
+
+function handler() {
+  window.location.reload(); // Reloads the webpage
+}
 
 function reset() {
   if (balls.length < 1) {

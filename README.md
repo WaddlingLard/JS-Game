@@ -2,7 +2,7 @@
 
 ## Overview
 
-I made the game and added a couple more elements to make it more interesting.
+I made the game and added a couple more elements to make it more interesting. For example, try moving in multiple directions! Test out the keys.
 
 Steps to run the website:
 1. To get this website running, first download this repository to your local directory.

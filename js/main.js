@@ -82,9 +82,24 @@ class Spawner extends Shape {
 }
 
 // Game element that 'deletes' items in a radius from the bomb
-class Bomb extends Shape {
+// class Bomb extends Shape {
+//   constructor(x, y, color, size) {
+//     super (x, y, 0, 0);
+//     this.color = color;
+//     this.size = size;
+//   }
 
-}
+//   draw() {
+//     ctx.beginPath();
+//     ctx.fillStyle = this.color;
+//     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+//     ctx.fill();
+//   }
+
+//   collides() {
+
+//   }
+// }
 
 class Ball extends Shape {
   constructor(x, y, velX, velY, color, size) {
@@ -246,6 +261,8 @@ class EvilCircle extends Shape {
           // ball.height = 0;
           ball.exists = false;
           currentBalls--;
+          ballsEaten++;
+          this.bulk();
         }
       }
     }
@@ -264,12 +281,17 @@ class EvilCircle extends Shape {
     }
   }
 
+  bulk() {
+    this.size++;
+  }
+
 }
 
 const balls = [];
 const spawners = [];
 const evilBall = new EvilCircle(random(0, width), random(0, height));
 let currentBalls = 0;
+let ballsEaten = 0;
 const score = document.querySelector("#score");
 
 while (balls.length < 25) {

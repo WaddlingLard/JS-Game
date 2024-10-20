@@ -24,10 +24,18 @@ h1 {
   text-shadow: 0 0 4px white;
 }
 
-p {
+#score {
   position: absolute;
   margin: 0;
   top: 35px;
+  right: 25px;
+  color: #aaa;
+}
+
+#eaten {
+  position: absolute;
+  margin: 0;
+  top: 55px;
   right: 25px;
   color: #aaa;
 }

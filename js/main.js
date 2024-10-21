@@ -248,7 +248,7 @@ class EvilCircle extends Shape {
       this.x += this.size;
     }
 
-    if (this.y + this.size >= height) {
+    if (this.y + this.size >= height - 60) { // accounting for canvas offset
       this.y -= this.size;
     }
 
@@ -292,7 +292,7 @@ class EvilCircle extends Shape {
   }
 
   bulk() {
-    this.size++;
+    this.size = this.size + 1;
   }
 
 }

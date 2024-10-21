@@ -47,24 +47,6 @@ class Spawner extends Shape {
     ctx.fill();
   }
 
-  // update() { // Possibly uncesssary, only used incase if 'spawns' by border
-  //   if (this.x + this.size >= width) {
-  //     this.x -= this.size;
-  //   }
-
-  //   if (this.x - this.size <= 0) {
-  //     this.x += this.size;
-  //   }
-
-  //   if (this.y + this.size >= height) {
-  //     this.y -= this.size;
-  //   }
-
-  //   if (this.y - this.size <= 0) {
-  //     this.y += this.size;
-  //   }
-  // }
-
   collides() {
     const size = random(10, 20);
     const ball = new Ball (
@@ -166,8 +148,6 @@ class EvilCircle extends Shape {
         keySequence[e.key] = true;  // setting key press on w a s or d
       }
 
-      // console.log(keySequence);
-
       if (keySequence.length === 1) {} // Check for diagonal movement
         if (keySequence['w'] && keySequence['a'] && keySequence['s'] && keySequence['d']) { // all pressed
         } else if (keySequence['w'] && keySequence['s']) { // opposite directions
@@ -183,17 +163,17 @@ class EvilCircle extends Shape {
             this.y += this.velY;
           }
         } else if (keySequence['w'] && keySequence['a']) { // moving up and left
-          this.x -= this.velX / 2;
-          this.y -= this.velY / 2;
+          this.x -= this.velX * .75;
+          this.y -= this.velY * .75;
         } else if (keySequence['w'] && keySequence['d']) { // moving up and right
-          this.x += this.velX / 2;
-          this.y -= this.velY / 2;
+          this.x += this.velX * .75;
+          this.y -= this.velY * .75;
         } else if (keySequence['s'] && keySequence['a']) { // right down and left
-          this.x -= this.velX / 2;
-          this.y += this.velY / 2;
+          this.x -= this.velX * .75;
+          this.y += this.velY * .75;
         } else if (keySequence['s'] && keySequence['d']) { // moving down and right
-          this.x += this.velX / 2;
-          this.y += this.velY / 2;
+          this.x += this.velX * .75;
+          this.y += this.velY * .75;
         }
       else { // Single direction
         switch (e.key) {
@@ -211,7 +191,6 @@ class EvilCircle extends Shape {
             break;
         }
       }
-      // keySequence = [];
     })
 
     window.addEventListener("keyup", (e) => { // resetting what movement keys are no longer pushed
@@ -265,10 +244,6 @@ class EvilCircle extends Shape {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < this.size + ball.size) {
-          // ball.color = this.color = randomRGB();
-          // ball.color = rgb(255, 255, 255);
-          // ball.width = 0;
-          // ball.height = 0;
           ball.exists = false;
           currentBalls--;
           ballsEaten++;
@@ -351,34 +326,6 @@ function reset() {
   }
 }
 
-// while (balls.length < 1) {
-//   while (spawners.length < 20) {
-//     const spawner = new Spawner(
-//       random(25, width - 25),
-//       random(25, height -25)
-//     )
-//     spawners.push(spawner);
-//   }
-//   const size = random(10, 20);
-//   const ball = new Ball(
-//     // ball position always drawn at least one ball width
-//     // away from the edge of the canvas, to avoid drawing errors
-//     random(0 + size, width - size),
-//     random(0 + size, height - size),
-//     // random(-7, 7),
-//     // random(-7, 7),
-//     random(-3, 3), // Makes things slower
-//     random(-3, 3),
-//     // 0, // Testing purposes
-//     // 0,
-//     randomRGB(),
-//     size
-//   );
-
-//   balls.push(ball);
-//   currentBalls++;
-// }
-
 function loop() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
   ctx.fillRect(0, 0, width, height);
@@ -403,24 +350,6 @@ function loop() {
   }
   score.innerHTML = "Score: " + currentBalls;
   eaten.innerHTML = "Eaten: " + ballsEaten;
-
-
-  // if (currentBalls === 0) { // Game Over!
-  //   alert("GAME OVER!");
-  //   reset();
-
-  //   for (const ball of balls) {
-  //     if (ball.exists === true) {
-  //       ball.draw();
-  //       ball.update();
-  //       ball.collisionDetect();
-  //     }
-  //     evilBall.draw();
-  //     evilBall.checkBounds();
-  //     evilBall.collisionDetect();
-  //   }
-  // }
-
   requestAnimationFrame(loop);
 }
 

@@ -4,6 +4,14 @@
 
 I made the game and added a couple more elements to make it more interesting. For example, try moving in multiple directions! Test out the keys.
 
+Features implemented:
+* Spawner blocks
+* Diagonal movement (try it out!)
+* Click to spawn
+* Reset button
+* Eaten Score
+* Grow in size
+
 Steps to run the website:
 1. To get this website running, first download this repository to your local directory.
 2. Navigate to where it is located on your computer and then open VSCode.

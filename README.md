@@ -1,4 +1,4 @@
-# CS408 - Lab9.2
+# JS Ball Game
 
 ## Overview
 
